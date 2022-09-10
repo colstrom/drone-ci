@@ -1,0 +1,12 @@
+#! /usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup' if ENV['HACKING']
+require 'irb'
+require 'irb/completion'
+
+require_relative '../lib/drone-ci'
+
+drone = DroneCI::Client.new
+
+binding.irb

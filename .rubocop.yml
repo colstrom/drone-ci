@@ -1,0 +1,17 @@
+---
+AllCops:
+  NewCops: enable
+
+Lint/Debugger:
+  Exclude:
+    - bin/drone-ci
+
+Naming/FileName:
+  Exclude:
+    - lib/drone-ci.rb
+
+Style/AccessorGrouping:
+  EnforcedStyle: separated
+
+Gemspec/DuplicatedAssignment:
+  Enabled: false
