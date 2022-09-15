@@ -2,43 +2,69 @@
 
 module DroneCI
   module ReposAPI
-    # https://docs.drone.io/api/repos/repo_chown/
+    # Lets a user assume ownership of a named repository.
+    #
+    # Please note this api requires administrative access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_chown/
     def repo_chown(owner, repo)
       api.post("repos/#{owner}/#{repo}/chown")
     end
 
-    # https://docs.drone.io/api/repos/repo_delete/
+    # Permanently deletes a repository. It cannot be undone.
+    #
+    # Please note this api requires administrative access to the repository, and repository’s secrets and builds aren’t deleted.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_delete/
     def repo_delete(owner, repo)
       api.delete("repos/#{owner}/#{repo}")
     end
 
     alias repo_disable repo_delete
 
-    # https://docs.drone.io/api/repos/repo_create/
-    def repo_create(owner, _name)
-      api.post("repos/#{owner}/#{repo}")
+    # Registers a named repository with Drone.
+    #
+    # Please note this api requires administrative access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_create/
+    def repo_create(owner, name)
+      api.post("repos/#{owner}/#{name}")
     end
 
     alias repo_enable repo_create
 
-    # https://docs.drone.io/api/repos/repo_info/
+    # Retrieves the details of a repository.
+    #
+    # Please note this api requires read access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_info/
     def repo_info(owner, repo)
       api.get("repos/#{owner}/#{repo}")
     end
 
-    # https://docs.drone.io/api/repos/repo_list/
+    # Returns repositories which are registered to Drone.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_list/
     # the docs are wrong, they say this is at api/user/repos, but the source code says...
     # https://github.com/harness/drone/blob/2d45d90cdd5cf2ec0e8dbcce2ea6bc340ce1e67e/handler/api/api.go#L173-L182
-    def repo_list(_owner)
+    def repo_list
       api.get('repos')
     end
 
-    # https://docs.drone.io/api/repos/repo_repair/
+    # Recreates webhooks for your repository in your version control system (e.g GitHub). This can be used if you accidentally delete your webhooks.
+    #
+    # Please note this api requires administrative access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_repair/
     def repo_repair(owner, repo)
       api.post("repos/#{owner}/#{repo}/repair")
     end
 
-    # https://docs.drone.io/api/repos/repo_update/
+    # Updates a named repository.
+    #
+    # Please note this api requires administrative access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/repos/repo_update/
     def repo_update(owner, repo, **body)
       api.patch("repos/#{owner}/#{repo}", body)
     end

@@ -38,6 +38,7 @@ jobs:
         files: |
           *.gem
           LICENSE.txt
+          CHANGELOG.md
 #     - name: Publish to RubyGems
 #       run: |
 #         mkdir -p $HOME/.gem

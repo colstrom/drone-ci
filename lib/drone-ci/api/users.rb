@@ -2,27 +2,47 @@
 
 module DroneCI
   module UsersAPI
-    # https://docs.drone.io/api/users/users_create/
+    # Creates a user.
+    #
+    # Please note this api requires administrative privileges.
+    #
+    # Reference: https://docs.drone.io/api/users/users_create/
     def users_create(**body)
       api.post('users', body)
     end
 
-    # https://docs.drone.io/api/users/users_delete/
+    # Deletes a user.
+    #
+    # Please note this api requires administrative privileges.
+    #
+    # Reference: https://docs.drone.io/api/users/users_delete/
     def users_delete(login)
       api.delete("users/#{login}")
     end
 
-    # https://docs.drone.io/api/users/users_info/
+    # Returns information about the named registered user.
+    #
+    # Please note this api requires administrative privileges.
+    #
+    # Reference: https://docs.drone.io/api/users/users_info/
     def users_info(login)
       api.get("users/#{login}")
     end
 
-    # https://docs.drone.io/api/users/users_list/
+    # Returns a list of all registered users.
+    #
+    # Please note this api requires administrative privileges.
+    #
+    # Reference: https://docs.drone.io/api/users/users_list/
     def users_list
       api.get('users')
     end
 
-    # https://docs.drone.io/api/users/users_update/
+    # Updates the specified user.
+    #
+    # Please note this api requires administrative privileges.
+    #
+    # Reference: https://docs.drone.io/api/users/users_update/
     def users_update(login, **body)
       api.patch("users/#{login}", body)
     end

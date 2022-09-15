@@ -2,17 +2,25 @@
 
 module DroneCI
   module UserAPI
-    # https://docs.drone.io/api/user/user_builds/
+    # Returns the currently authenticated user’s build feed.
+    #
+    # Reference: https://docs.drone.io/api/user/user_builds/
     def user_builds
       api.get('user/builds')
     end
 
-    # https://docs.drone.io/api/user/user_info/
+    # Returns the currently authenticated user.
+    #
+    # Reference: https://docs.drone.io/api/user/user_info/
     def user_info
       api.get('user')
     end
 
-    # https://docs.drone.io/api/user/user_repos/
+    # Returns the currently authenticated user’s repository list.
+    #
+    # Optionally, include the latest build for each active repository.
+    #
+    # Reference: https://docs.drone.io/api/user/user_repos/
     def user_repos(latest: nil)
       api.get('user/repos') do |request|
         { latest: latest }.compact.each do |key, value|
@@ -21,7 +29,9 @@ module DroneCI
       end
     end
 
-    # https://docs.drone.io/api/user/user_sync/
+    # Synchronize the currently authenticated user’s repository list.
+    #
+    # Reference: https://docs.drone.io/api/user/user_sync/
     def user_sync
       api.post('user/repos')
     end

@@ -2,27 +2,47 @@
 
 module DroneCI
   module SecretsAPI
-    # https://docs.drone.io/api/secrets/secret_create/
+    # Create a new repository secret.
+    #
+    # Please note this api requires write access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/secrets/secret_create/
     def secret_create(owner, repo, **body)
       api.post("repos/#{owner}/#{repo}/secrets", body)
     end
 
-    # https://docs.drone.io/api/secrets/secret_delete/
+    # Deletes a repository secret.
+    #
+    # Please note this api requires write access to the repository, and the request parameter {secret} is not the secret’s id but secret name.
+    #
+    # Reference: https://docs.drone.io/api/secrets/secret_delete/
     def secret_delete(owner, repo, secret)
       api.post("repos/#{owner}/#{repo}/secrets/#{secret}")
     end
 
-    # https://docs.drone.io/api/secrets/secret_info/
+    # Returns the repository secret.
+    #
+    # Please note this api requires write access to the repository, and the request parameter {secret} is not the secret’s id but secret name.
+    #
+    # Reference: https://docs.drone.io/api/secrets/secret_info/
     def secret_info(owner, repo, secret)
       api.get("repos/#{owner}/#{repo}/secrets/#{secret}")
     end
 
-    # https://docs.drone.io/api/secrets/secret_list/
+    # Returns the repository secret list.
+    #
+    # Please note this api requires write access to the repository.
+    #
+    # Reference: https://docs.drone.io/api/secrets/secret_list/
     def secret_list(owner, repo)
       api.get("repos/#{owner}/#{repo}/secrets")
     end
 
-    # https://docs.drone.io/api/secrets/secret_update/
+    # Updates the specified repository secret.
+    #
+    # Please note this api requires write access to the repository, and the request parameter {secret} is not the secret’s id but secret name.
+    #
+    # Reference: https://docs.drone.io/api/secrets/secret_update/
     def secret_update(owner, repo, secret, **body)
       api.patch("repos/#{owner}/#{repo}/secrets/#{secret}", body)
     end
