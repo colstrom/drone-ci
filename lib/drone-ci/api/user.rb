@@ -32,8 +32,24 @@ module DroneCI
     # Synchronize the currently authenticated user’s repository list.
     #
     # Reference: https://docs.drone.io/api/user/user_sync/
-    def user_sync
-      api.post('user/repos')
+    def user_sync(async: nil)
+      api.post('user/repos') do |request|
+        { async: async }.compact.each do |key, value|
+          request.params[key] = value
+        end
+      end
+    end
+
+    # Undocumented endpoint.
+    #
+    # Route Reference: https://github.com/harness/drone/blob/master/handler/api/api.go#L324
+    # Code Reference: https://github.com/harness/drone/blob/master/handler/api/user/token.go
+    def user_token(rotate: nil)
+      api.post('user/token') do |request|
+        { rotate: rotate }.compact.each do |key, value|
+          request.params[key] = value
+        end
+      end
     end
   end
 end

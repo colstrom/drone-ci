@@ -16,8 +16,12 @@ module DroneCI
     # Please note this api requires administrative access to the repository, and repository’s secrets and builds aren’t deleted.
     #
     # Reference: https://docs.drone.io/api/repos/repo_delete/
-    def repo_delete(owner, repo)
-      api.delete("repos/#{owner}/#{repo}")
+    def repo_delete(owner, repo, remove: nil)
+      api.delete("repos/#{owner}/#{repo}") do |request|
+        { remove: remove }.compact.transform_keys(&:to_s).each do |key, value|
+          request[key] = value
+        end
+      end
     end
 
     alias repo_disable repo_delete
@@ -47,8 +51,12 @@ module DroneCI
     # Reference: https://docs.drone.io/api/repos/repo_list/
     # the docs are wrong, they say this is at api/user/repos, but the source code says...
     # https://github.com/harness/drone/blob/2d45d90cdd5cf2ec0e8dbcce2ea6bc340ce1e67e/handler/api/api.go#L173-L182
-    def repo_list
-      api.get('repos')
+    def repo_list(page: 1, per_page: 25)
+      api.get('repos') do |request|
+        { page: page, per_page: per_page }.compact.transform_keys(&:to_s).each do |key, value|
+          request[key] = value
+        end
+      end
     end
 
     # Recreates webhooks for your repository in your version control system (e.g GitHub). This can be used if you accidentally delete your webhooks.

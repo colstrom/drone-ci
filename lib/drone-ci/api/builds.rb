@@ -47,8 +47,17 @@ module DroneCI
     # Please note this api requires read access to the repository.
     #
     # Reference: https://docs.drone.io/api/builds/build_list/
-    def build_list(owner, repo)
-      api.get("repos/#{owner}/#{repo}/builds")
+    def build_list(owner, repo, branch: nil, tag: nil, page: 1, per_page: 25)
+      api.get("repos/#{owner}/#{repo}/builds") do |request|
+        {
+          branch: branch,
+          commit: commit,
+          page: page,
+          per_page: [[per_page, 1].max, 100].min, # https://github.com/harness/drone/blob/cbfd342333ffa4b2fe76b7e8948235efd3535fac/handler/api/repos/builds/list.go#L45-L47
+        }.compact.transform_keys(&:to_s).each do |key, value|
+          request.params[key] = value
+        end
+      end
     end
 
     # Please note this api requires read access to the repository.
@@ -65,9 +74,9 @@ module DroneCI
     # Please note this api requires write access to the repository.
     #
     # Reference: https://docs.drone.io/api/builds/build_promote/
-    def build_promote(owner, repo, build, target:, **params)
+    def build_promote(owner, repo, build, target:)
       api.post("repos/#{owner}/#{repo}/builds/#{build}") do |request|
-        { target: target }.merge(params).compact.transform_keys(&:to_s).each do |key, value|
+        { target: target }.compact.transform_keys(&:to_s).each do |key, value|
           request.params[key] = value
         end
       end
