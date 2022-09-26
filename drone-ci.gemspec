@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'pry',        '~> 0.14.1'
   gem.add_development_dependency 'pry-doc',    '~> 1.3'
   gem.add_development_dependency 'rubocop',    '~> 1.35'
-  gem.add_development_dependency 'solargraph', '~> 0.46.0'
+  gem.add_development_dependency 'solargraph', '~> 0.47.0'
   gem.add_development_dependency 'yard',       '~> 0.9.28'
   gem.metadata['rubygems_mfa_required'] = 'true'
 end
