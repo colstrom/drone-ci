@@ -28,7 +28,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'faraday',        '~> 2.5', '>= 2.5.2'
   gem.add_runtime_dependency 'faraday-retry',  '~> 2.0'
   gem.add_runtime_dependency 'httpx',          '~> 0.21.0'
-  gem.add_runtime_dependency 'octokit',        '~> 5.6'
+  gem.add_runtime_dependency 'octokit',        '>= 5.6', '< 7.0'
 
   gem.add_development_dependency 'pry',        '~> 0.14.1'
   gem.add_development_dependency 'pry-doc',    '~> 1.3'
