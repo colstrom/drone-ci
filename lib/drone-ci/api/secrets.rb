@@ -46,5 +46,13 @@ module DroneCI
     def secret_update(owner, repo, secret, **body)
       api.patch("repos/#{owner}/#{repo}/secrets/#{secret}", body)
     end
+
+    # Returns the organizations secret list.
+    #
+    # Please note this api requires write access to the organizatiion.
+    #
+    def org_secret_list(owner)
+      api.get("secrets/#{owner}")
+    end
   end
 end
